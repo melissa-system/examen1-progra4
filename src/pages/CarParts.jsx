@@ -32,8 +32,15 @@ function CarParts() {
     part.articleNo.toLowerCase().includes(search.toLowerCase())
   )
 
-  if (loading) return <p>Cargando repuestos desde la API...</p>
-  if (error) return <p>Error: {error}</p>
+  if (loading) return (
+    <div style={{ display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', minHeight:'60vh', color:'#fff' }}>
+      <div style={{ width:'48px', height:'48px', border:'4px solid #374151', borderTopColor:'#6d28d9', borderRadius:'50%', animation:'spin 0.8s linear infinite', marginBottom:'1rem' }}></div>
+      <p style={{ color:'#9ca3af' }}>Cargando repuestos desde la API...</p>
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+    </div>
+  )
+
+  if (error) return <p style={{ color:'#fff', textAlign:'center', marginTop:'2rem' }}>Error: {error}</p>
 
   return (
     <main className="carparts">
