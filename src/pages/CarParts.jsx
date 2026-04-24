@@ -50,7 +50,12 @@ function CarParts() {
         <>
           <ul>
             {filtered.slice(0, visible).map((part, index) => (
-              <li key={index}>{part.articleNo} - {part.supplierName}</li>
+              <li key={index}>
+                <img src={part.s3image} alt={part.articleProductName} />
+                <p>{part.articleNo}</p>
+                <p>{part.articleProductName}</p>
+                <p>{part.supplierName}</p>
+              </li>
             ))}
           </ul>
           {visible < filtered.length && (
