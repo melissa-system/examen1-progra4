@@ -1,0 +1,20 @@
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #111827;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  background: #1f2937;
+  padding: 10px 24px;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+nav a:hover {
+  background: #374151;
+}

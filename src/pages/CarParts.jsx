@@ -1,3 +1,4 @@
+import './CarParts.css'
 import { useState, useEffect } from 'react'
 
 function CarParts() {
@@ -35,7 +36,7 @@ function CarParts() {
   if (error) return <p>Error: {error}</p>
 
   return (
-    <main>
+    <main className="carparts">
       <h2>Repuestos</h2>
       <input
         type="text"

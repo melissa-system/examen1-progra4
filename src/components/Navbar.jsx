@@ -1,3 +1,4 @@
+import './Navbar.css'
 import { Link } from '@tanstack/react-router'
 
 function Navbar() {
