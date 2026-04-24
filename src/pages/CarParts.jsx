@@ -4,6 +4,7 @@ function CarParts() {
   const [parts, setParts] = useState([])
   const [visible, setVisible] = useState(10)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const [search, setSearch] = useState('')
 
   useEffect(() => {
@@ -12,9 +13,16 @@ function CarParts() {
         'X-Access-Key': import.meta.env.VITE_JSONBIN_ACCESS_KEY
       }
     })
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error('Error al cargar los datos')
+        return res.json()
+      })
       .then(data => {
         setParts(data.record.articles)
+        setLoading(false)
+      })
+      .catch(err => {
+        setError(err.message)
         setLoading(false)
       })
   }, [])
@@ -24,6 +32,7 @@ function CarParts() {
   )
 
   if (loading) return <p>Cargando repuestos desde la API...</p>
+  if (error) return <p>Error: {error}</p>
 
   return (
     <main>
@@ -34,15 +43,21 @@ function CarParts() {
         value={search}
         onChange={e => setSearch(e.target.value)}
       />
-      <ul>
-        {filtered.slice(0, visible).map((part, index) => (
-          <li key={index}>{part.articleNo} - {part.supplierName}</li>
-        ))}
-      </ul>
-      {visible < filtered.length && (
-        <button onClick={() => setVisible(visible + 10)}>
-          Ver más ({filtered.length - visible} restantes)
-        </button>
+      {filtered.length === 0 ? (
+        <p>No se encontraron repuestos.</p>
+      ) : (
+        <>
+          <ul>
+            {filtered.slice(0, visible).map((part, index) => (
+              <li key={index}>{part.articleNo} - {part.supplierName}</li>
+            ))}
+          </ul>
+          {visible < filtered.length && (
+            <button onClick={() => setVisible(visible + 10)}>
+              Ver más ({filtered.length - visible} restantes)
+            </button>
+          )}
+        </>
       )}
     </main>
   )
